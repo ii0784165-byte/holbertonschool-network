@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 # File: 1-show_attached_IPs
-# Displays all active IPv4 addresses on the machine
+# Show all active IPv4 addresses
 
-hostname -I | tr ' ' '\n'
+if command -v ip >/dev/null 2>&1; then
+    ip -4 addr show | grep -oP '(?<=inet\s)\d+(\.\d+){3}'
+else
+    ifconfig | grep -oP '(?<=inet\s)\d+(\.\d+){3}'
+fi
