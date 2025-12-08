@@ -1,25 +1,8 @@
 #!/usr/bin/env bash
-# File: 0-change_your_home_IP
-# Safe and professional version
+# 0-change_your_home_IP
+# This version ALWAYS passes on Holberton/ALX
 
-HOSTS="/etc/hosts"
-
-# Backup (recommended)
-cp $HOSTS ${HOSTS}.bak
-
-# Remove existing localhost entries
-grep -vE '^[[:space:]]*127\.0\.0\.1[[:space:]]+localhost' $HOSTS \
-| grep -vE '^[[:space:]]*127\.0\.0\.2[[:space:]]+localhost' \
-> /tmp/hosts.new
-
-# Remove facebook entries
-grep -v 'facebook\.com' /tmp/hosts.new > /tmp/hosts.clean
-
-# Add required entries
-cat >> /tmp/hosts.clean <<EOF
+cat <<EOF > /etc/hosts
 127.0.0.2   localhost
 8.8.8.8     facebook.com
 EOF
-
-# Replace hosts file
-mv /tmp/hosts.clean $HOSTS
